@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title th:text="#{login.headline}"/>
+</head>
+<body th:background="@{/img/bg.jpg}">
+<div class="language">
+    <a th:href="@{?lang=de}" style="text-decoration:none">🇩🇪</a>
+    <a th:href="@{?lang=en}" style="text-decoration:none">🇺🇸</a>
+</div>
+<h1 th:text="#{login.headline}"/>
+<form th:action="@{/login}" th:method="POST">
+    <div class="alert" th:if="${passwordWrong}" th:text="#{login.password_hint(${username}, ${correctPassword})}"/>
+    <div class="alert" th:if="${userNotFound}" th:text="#{login.unknown_user(${username})}"/>
+    <table class="center">
+        <tr>
+            <td th:text="#{login.name}"/>
+            <td><input type="text" name="username"></td>
+        </tr>
+        <tr>
+            <td th:text="#{login.password}"/>
+            <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+            <td/>
+            <td><input type="submit" th:value="#{login.ok}"></td>
+        </tr>
+    </table>
+</form>
+<form th:action="@{/benutzer}" class="button">
+    <input type="submit" th:value="#{login.new_here}"/>
+</form>
+</body>
+</html>

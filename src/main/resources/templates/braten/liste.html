@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title th:text="#{list.headline}"/>
+</head>
+<body th:background="@{/img/bg.jpg}">
+<div class="language">
+    <a th:href="@{?lang=de}" style="text-decoration:none">🇩🇪</a>
+    <a th:href="@{?lang=en}" style="text-decoration:none">🇺🇸</a>
+</div>
+    <h1 th:text="#{list.headline}"/>
+    <table class="center">
+        <tr>
+            <th th:text="#{edit.provider}"/>
+            <th th:text="#{edit.best_before}"/>
+            <th th:text="#{edit.location}"/>
+            <th th:text="#{edit.description}"/>
+            <th th:text="#{edit.veggie_factor}"/>
+        </tr>
+        <tr th:each="angebot : ${angebote}">
+            <td th:text="${angebot.anbieter.vollname}"/>
+            <td th:text="${angebot.haltbarBis}"/>
+            <td th:text="${angebot.abholort}"/>
+            <td th:text="${angebot.beschreibung}"/>
+            <td th:text="${angebot.vgrad}"/>
+            <td><a th:href="@{'/braten/angebot/' + ${angebot.id}}" style="text-decoration:none">🖊️</a></td>
+            <td><a th:href="@{'/braten/angebot/' + ${angebot.id} + '/del'}" style="text-decoration:none">🗑️️</a></td>
+        </tr>
+    </table>
+    <form th:action="@{'/braten/angebot/neu'}" class="button">
+        <input type="submit" th:value="#{list.new}"/>
+    </form>
+</body>
+</html>

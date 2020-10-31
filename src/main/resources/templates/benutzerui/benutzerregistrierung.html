@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title th:text="#{register.headline}"/>
+</head>
+<body th:background="@{/img/bg.jpg}">
+<div class="language">
+    <a th:href="@{?lang=de}" style="text-decoration:none">🇩🇪</a>
+    <a th:href="@{?lang=en}" style="text-decoration:none">🇺🇸</a>
+</div>
+<h1 th:text="#{register.headline}"/>
+<form th:action="@{/benutzer}" th:method="POST" th:object="${benutzer}">
+    <table class="center">
+        <tr>
+            <td th:text="#{register.loginname}"/>
+            <td><input type="text" th:field="*{loginname}"/></td>
+            <td th:if="${loginnameTaken}" th:text="#{username.taken}"/>
+            <td th:if="${#fields.hasErrors('loginname')}" th:errors="*{loginname}" th:text="#{TODO}"/>
+        </tr>
+        <tr>
+            <td th:text="#{register.password}"/>
+            <td><input type="password" th:field="*{passwort}"/></td>
+            <td th:if="${#fields.hasErrors('passwort')}" th:errors="*{passwort}" th:text="#{TODO}"/>
+        </tr>
+        <tr>
+            <td th:text="#{register.full_name}"/>
+            <td><input type="text" th:field="*{vollname}"/></td>
+            <td th:if="${#fields.hasErrors('vollname')}" th:errors="*{vollname}" th:text="#{TODO}"/>
+        </tr>
+        <tr>
+            <td th:text="#{register.accept_tos}"/>
+            <td><input type="checkbox" th:field="*{nutzungsbedingungenok}"/></td>
+            <td th:if="${tosError}" th:text="#{register.accept_tos_invalid}"/>
+        </tr>
+        <tr>
+            <td/>
+            <td><input type="submit" th:value="#{register.ok}"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title th:text="#{edit.headline}"/>
+</head>
+<body th:background="@{/img/bg.jpg}">
+<div class="language">
+    <a th:href="@{?lang=de}" style="text-decoration:none">🇩🇪</a>
+    <a th:href="@{?lang=en}" style="text-decoration:none">🇺🇸</a>
+</div>
+<h1 th:text="#{edit.headline}"/>
+<form th:action="@{/braten/angebot/neu}" th:method="POST" th:object="${angebotform}">
+    <table class="center">
+        <tr>
+            <td th:text="#{edit.location}"/>
+            <td><input type="text" th:field="*{abholort}"/></td>
+            <td th:if="${#fields.hasErrors('abholort')}" th:errors="*{abholort}" th:text="#{edit.wrong_location}"/>
+        </tr>
+        <tr>
+            <td th:text="#{edit.description}"/>
+            <td><input type="text" th:field="*{beschreibung}"/></td>
+            <td th:if="${#fields.hasErrors('beschreibung')}" th:errors="*{beschreibung}" th:text="#{edit.wrong_description}"/>
+        </tr>
+        <tr>
+            <td th:text="#{edit.best_before}"/>
+            <td><input type="date" th:field="*{haltbarBis}"/></td>
+            <td th:if="${#fields.hasErrors('haltbarBis')}" th:errors="*{haltbarBis}" th:text="#{edit.best_before_invalid}"/>
+        </tr>
+        <tr>
+            <td th:text="#{edit.veggie_factor}"/>
+            <td>
+                <select th:field="*{vgrad}">
+                    <option th:each="veggiewert: *{veggieWerte}"
+                        th:value="${veggiewert}"
+                        th:text="${veggiewert} + '%'" />
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td/>
+            <td><input type="submit" th:value="#{edit.ok}"/></td>
+        </tr>
+        <tr>
+            <td><input type="hidden" name="id" th:value="${angebotform.id}"/></td>
+        </tr>
+        <tr>
+            <td><input type="hidden" name="version" th:value="${angebotform.version}"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
